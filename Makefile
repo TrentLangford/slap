@@ -7,7 +7,7 @@ COUTPUTFILE=src/input/output-file
 all: slap
 	clear
 	./bin/slap $(CINPUTFILE) $(CGRAMMARFILE) $(COUTPUTFILE)
-	@make clean -s
+#	@make clean -s
 
 slap: main.o gram.o
 	$(CC) $(CFLAGS) bin/main.o bin/gram.o -o bin/slap
