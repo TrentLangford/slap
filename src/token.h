@@ -7,9 +7,6 @@ typedef struct token
     char *value;
 } token;
 
-
-
-
-
+token wordToToken(char *word, gram_rule *rules, int rCount);
 
 #endif

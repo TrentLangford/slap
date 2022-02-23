@@ -1,7 +1,7 @@
 #ifndef __GRAM_H_
 #define __GRAM_H_
 
-#include <stdio.h>
+#include "common.h"
 
 typedef struct gram_rule
 {
