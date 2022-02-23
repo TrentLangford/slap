@@ -2,12 +2,12 @@
 
 typedef struct token
 {
-    char *type;
-    char *value;
+  char *type;
+  char *value;
 } token;
 
 token wordToToken(char *word, gram_rule *rules, int rCount) {
-    token result;
+	token result;
 	gram_rule def;
 	gram_rule num;
 	for (int i = 0; i < rCount; i++)
@@ -24,8 +24,6 @@ token wordToToken(char *word, gram_rule *rules, int rCount) {
 			}
 		}
 	}
-	
-	
-    return result;
+  return result;
 }
 
