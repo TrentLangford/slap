@@ -8,6 +8,8 @@ typedef struct token
 
 token wordToToken(char *word, gram_rule *rules, int rCount) {
     token result;
+	gram_rule def;
+	gram_rule num;
 	for (int i = 0; i < rCount; i++)
 	{
 		for (int x = 0; x < rules[i].aliasCount; x++)
