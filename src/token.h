@@ -1,6 +1,8 @@
 #ifndef __TOKEN_H_
 #define __TOKEN_H_
 
+#include "gram.h"
+
 typedef struct token
 {
     char *type;

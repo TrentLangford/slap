@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
 	removeChar(word, '\n');
 	token tok = wordToToken(word, rules, count);
 
-	if (tok.type != NULL) printf("Token: %s value %s\n", tok.type, tok.value);
+	if (tok.type != NULL) printf("{%s:%s}\n", tok.type, tok.value);
 	
     fclose(input);
     fclose(grammar);
