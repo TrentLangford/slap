@@ -38,7 +38,7 @@ gram_rule lineFromFileToRule(FILE *fptr) {
 
     // Separate the line into tokens and get the first token
     char * token = strtok(line, " ");
-    gram_rule g;
+    gram_rule g = {NULL, NULL, 0, 0, 0};
     g.type_name = malloc(sizeof(char) * strlen(token));
     strcpy(g.type_name, token);
 
@@ -53,7 +53,7 @@ gram_rule lineFromFileToRule(FILE *fptr) {
     // Count the amount of tokens left to parse
     int tokenCount = 0;
     while(token != NULL) {
-        if (strcmp(token, ":") != 0 && strcmp(token, g.type_name)) {
+        if (strcmp(token, g.type_name)) {
             tokenCount++;
         }
         token = strtok(NULL, " ");
@@ -66,10 +66,10 @@ gram_rule lineFromFileToRule(FILE *fptr) {
     int i = 0;
     while(token != NULL) {
         // Make sure we skip the name and colon tokens in the line
-        if (strcmp(token, ":") != 0 && strcmp(token, g.type_name) != 0) {
-            removeChar(token, ',');
+        if (strcmp(token, g.type_name) != 0) {
             tokens[i] = (char*) malloc(sizeof(char) * (strlen(token) + 1));
             strcpy(tokens[i], token);
+            tokens[i][strlen(token)] = '\0'; // For protection ??
             i++;
         }
 
@@ -89,7 +89,7 @@ gram_rule lineFromFileToRule(FILE *fptr) {
     if (g.aliasCount == 1) {
         if (strcmp(g.aliases[0], "{num}") == 0) g.is_num = 1;
         else g.is_num = 0;
-
+        
         if (strcmp(g.aliases[0], "{def}") == 0) g.is_default = 1;
         else g.is_default = 0;
     }

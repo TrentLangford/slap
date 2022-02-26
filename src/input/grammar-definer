@@ -1,6 +1,6 @@
-type-1 : your, mom
-type-2 : done
-type-3 : int, char, float, bool
-number : {num}
-default : {def}
+type-1 your mom
+type-2 done
+type-3 int char float bool
+number {num}
+default {def}
 end
