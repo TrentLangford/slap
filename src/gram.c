@@ -106,3 +106,69 @@ gram_rule lineFromFileToRule(FILE *fptr) {
 
     return g;
 }
+
+void writeRulesToFile(FILE *fp, gram_rule *rules, int count)
+{
+    fwrite(&count, sizeof(int), 1, fp);
+    for (int i = 0; i < count; i++)
+    {
+        unsigned short typename_s = strlen(rules[i].type_name);
+        fwrite(&typename_s, sizeof(unsigned short), 1, fp);
+
+        fwrite(rules[i].type_name, sizeof(char), typename_s, fp);
+
+        fwrite(&rules[i].aliasCount, sizeof(int), 1, fp);
+
+        for (int n = 0; n < rules[i].aliasCount; n++)
+        {
+            unsigned short aliaslen = strlen(rules[i].aliases[n]);
+            fwrite(&aliaslen, sizeof(unsigned short), 1, fp);
+
+            fwrite(rules[i].aliases[n], sizeof(char), aliaslen, fp);
+        }
+
+        fwrite(&rules[i].is_num, sizeof(int), 1, fp);
+        fwrite(&rules[i].is_default, sizeof(int), 1, fp);
+    }
+
+}
+
+gram_rule * readRulesFromFile(FILE *fp)
+{
+    rewind(fp);
+    int count = 0;
+    fread(&count, sizeof(int), 1, fp);
+
+    gram_rule *rules = malloc(sizeof(gram_rule) * count);
+
+    for (int i = 0; i < count; i++)
+    {
+        unsigned short typename_s;
+        fread(&typename_s, sizeof(unsigned short), 1, fp);
+        printf("typenamelen: %d\n", typename_s);
+        rules[i].type_name = malloc(sizeof(char) * typename_s);
+        fread(rules[i].type_name, sizeof(char), typename_s, fp);
+        printf("rules[i] name: %s\n", rules[i].type_name);
+
+        fread(&rules[i].aliasCount, sizeof(int), 1, fp);
+        printf("rules alias count %d\n", rules[i].aliasCount);
+
+        rules[i].aliases = malloc(sizeof(char *) * rules[i].aliasCount);
+
+        for (int n = 0; n < rules[i].aliasCount; n++)
+        {
+            unsigned short aliaslen;
+            fread(&aliaslen, sizeof(unsigned short), 1, fp);
+            printf("alias len: %d\n", aliaslen);
+            rules[i].aliases[n] = malloc(sizeof(char) * aliaslen);
+
+            fread(rules[i].aliases[n], sizeof(char), aliaslen, fp);
+            printf("rules i alias n: %s\n", rules[i].aliases[n]);
+        }
+
+        fread(&rules[i].is_num, sizeof(int), 1, fp);
+        fread(&rules[i].is_default, sizeof(int), 1, fp);
+    }
+
+    return rules;
+}

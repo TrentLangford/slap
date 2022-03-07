@@ -17,4 +17,8 @@ void removeChar(char *str, char garbage);
 // Returns  a single grammar rule, with a type of end if the end command is reached.
 gram_rule lineFromFileToRule(FILE *fptr);
 
+
+void writeRulesToFile(FILE *fp, gram_rule *rules, int count);
+gram_rule *readRulesFromFile(FILE *fp);
+
 #endif

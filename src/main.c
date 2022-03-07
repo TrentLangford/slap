@@ -37,6 +37,18 @@ int main(int argc, char **argv) {
 		
         g = lineFromFileToRule(grammar);
     }
+    rules[count++] = g;
+
+    FILE *grambin = fopen("src/bin/grambin.bin", "w+");
+
+    writeRulesToFile(grambin, rules, count);
+    gram_rule *readout = readRulesFromFile(grambin);
+    int i = 0;
+    while (strcmp(readout[i].type_name, "end") != 0)
+    {
+        printf("%s\n", readout[i].type_name);
+        i++;
+    }
 
     char buff[64];
 	fgets(buff, 64, stdin);
