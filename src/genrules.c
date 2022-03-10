@@ -34,5 +34,8 @@ int main(int argc, char **argv)
 
     writeRulesToFile(binaryFile, rules, count);
 
+    fclose(tokenFile);
+    fclose(binaryFile);
+
     return 0;
 }
