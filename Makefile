@@ -10,6 +10,10 @@ all: slap
 #	@make clean -s
 # 	I needed to clean up directories when I was compiling and working in the parent folder, but now I can just keep it in the bin folder
 
+genrules: gram.o token.o
+	gcc -g -c src/genrules.c -o bin/genrules.o
+	gcc -g bin/genrules.o bin/gram.o bin/token.o -o bin/genrules.out
+
 slap: main.o gram.o token.o
 	$(CC) $(CFLAGS) bin/main.o bin/gram.o bin/token.o -o bin/slap.out
 
